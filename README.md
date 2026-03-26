@@ -7,7 +7,7 @@
     - backend in **_in python_**,**_javascript_**
     - front end also using some **_javascript_**, visuals mostly **_html and css_**
     ### *other tools to include*
-        - will add a sentence scrambler tool for ease of making worksheets or activities （並び替え）
+    - will add a sentence scrambler tool for ease of making worksheets or activities （並び替え）
 
     ##
 <sup>1</sup>kana translation uses [this e2k project](https://github.com/Patchethium/e2k/blob/master/README.md)
