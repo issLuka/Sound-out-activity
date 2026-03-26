@@ -1,26 +1,5 @@
-Perfect! This clarifies things. Let me outline the simplest path forward:
-
----
 
 ## **Simplified Approach**
-
-### **How Words Get Organized Into Levels**
-
-You have two options:
-
-**Option A (Simplest):** User pastes words in any order → App automatically assigns them:
-- First 4 words → Level 1
-- Next 4 words → Level 2
-- Next 4 words → Level 3
-- Next 4 words → Level 4
-- Last 2 words → Level 5
-
-**Option B:** User manually selects the level for each word
-- More work for the user, but more flexible
-
-I'd recommend **Option A** for now (matches your current script behavior).
-
----
 
 ## **The Workflow (Text-Based, No PNG Yet)**
 
@@ -730,3 +709,144 @@ workflow.md can include:
 This is full, copy/paste-ready.  
 Next time, open your project, paste these files, and run.  
 Ask again if you want “PNG generation script that uses Pillow after edit” as the next enhancement.
+
+### -----------------------------------------------------
+
+## 🎉 Great news: you can do this with a small UI addition and static serving
+
+Fantastic progress: your `userInput.html` is already set up nicely and we can safely add radio buttons + preview images from png.  
+Next step: show chosen design thumbnail from the png folder before submission.
+
+---
+
+## 1) Add the design selector HTML (radio + preview area)
+
+In userInput.html, add this block before "Generate Worksheet":
+
+```html
+<h3>Select worksheet style:</h3>
+<div>
+  <label>
+    <input type="radio" name="design" value="style1" checked
+      onchange="setDesignPreview('style1.png')">
+    Style 1
+  </label>
+  <label>
+    <input type="radio" name="design" value="style2"
+      onchange="setDesignPreview('style2.png')">
+    Style 2
+  </label>
+  <label>
+    <input type="radio" name="design" value="style3"
+      onchange="setDesignPreview('style3.png')">
+    Style 3
+  </label>
+</div>
+
+<div id="designPreviewWrapper" style="margin: 10px 0;">
+  <p>Preview:</p>
+  <img id="designPreview" src="/png/style1.png" alt="Sheet style preview"
+       style="max-width: 400px; border:1px solid #ccc;">
+</div>
+```
+
+- Change `"style1.png"`/`style2.png`/`style3.png` to actual file names in your png folder.
+- `src="/png/...` assumes your server serves static files from root and your PNGs are directly available as `/png/filename.png`.
+
+---
+
+## 2) Add JS helper function in `inputHandler.js`
+
+At top (or bottom) of inputHandler.js:
+
+```javascript
+function setDesignPreview(imageName) {
+    const img = document.getElementById("designPreview");
+    img.src = `/png/${imageName}`;
+}
+```
+
+This updates the preview image when a radio button is selected.
+
+---
+
+## 3) Include selected design in the payload POST
+
+In `submitWords()` (inputHandler.js) add:
+
+```javascript
+const design = document.querySelector('input[name="design"]:checked').value;
+
+const payload = {
+    level1: ...,
+    ...,
+    level5: ...,
+    design: design
+};
+```
+
+Then in Flask route (`/api/generate`) you'll get `data["design"]` for later use (e.g., render PNG from selected template or just track style).
+
+---
+
+## 4) Back-end static files config (Flask)
+
+Make sure Flask can serve png:
+
+- Either using `static_folder` in app creation:
+
+```python
+app = Flask(__name__, template_folder="../html", static_folder="../")
+```
+
+Then `/png/your.png` works (since your root has png).
+
+- OR explicit route (if needed):
+
+```python
+from flask import send_from_directory
+
+@app.route("/png/<path:filename>")
+def png(filename):
+    return send_from_directory("png", filename)
+```
+
+---
+
+## 5) Option: display selected design in `resultsPage.html`
+
+If you want the output screen to show the chosen base style:
+
+- Add a placeholder:
+
+```html
+<h3>Selected Style</h3>
+<img id="selectedStyle" style="max-width:300px; border:1px solid #ccc;">
+```
+
+- Populate in `resultsHandler.js`:
+
+```javascript
+const selectedStyle = sessionStorage.getItem("sheetDesign");
+if (selectedStyle) {
+    document.getElementById("selectedStyle").src = `/png/${selectedStyle}`;
+}
+```
+
+And in `inputHandler.js` after `/api/generate`:
+
+```javascript
+sessionStorage.setItem("sheetDesign", design);
+```
+
+---
+
+## ✅ Summary
+
+- Add radio inputs and preview image in `userInput.html`
+- Add `setDesignPreview()` in `inputHandler.js`
+- Send `design` with payload to Flask
+- Ensure Flask static PNG route works
+- (optional) show style on results page
+
+You’re set for UI and flow. If you want, I can next show how to generate a PNG “worksheet page” from the text+style using Pillow (Python) after edit.
