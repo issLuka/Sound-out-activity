@@ -1,11 +1,18 @@
 from flask import Flask, request, jsonify, render_template
-import subprocess
+import os
+import sys
+
+#add scripts to path for import to soundout scipt
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+app_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(app_dir)
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return app.send_static_file("html/userInput.html")
 
 @app.route("/submit", methods=["POST"])
 def submit():
@@ -16,7 +23,7 @@ def submit():
         f.write(data)
 
     # Run your existing script (optional)
-    subprocess.run(["python", "script.py"])
+    #subprocess.run(["python", "script.py"])
 
     return jsonify({"status": "success"})
 

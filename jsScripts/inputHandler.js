@@ -1,8 +1,5 @@
 //handles input from userInput
-function setDesignPreview(imageName) {
-    const img = document.getElementById("designPreview");
-    img.src = `/png/${imageName}`;
-}
+
 function submitWords() {
     const design = document.querySelector('input[name="design"]:checked').value;
 

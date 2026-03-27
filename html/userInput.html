@@ -7,16 +7,38 @@
             #imageSquirtle, #imageCharmander, #imageBulbasaur {
                 display: none;
             }
-
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
 
         </style>
-    </head>
-<body style="text-align: center;"></body>
-        <!-- add images -->
-        <img id="imageBulbasaur" src="./png/soundoutActivityBulbasaur.png" alt="Design Preview" width="300">
-        <img id="imageCharmander" src="./png/soundoutActivityCharmander.png" alt="Design Preview" width="300" style="display: none;">
-        <img id="imageSquirtle" src="./png/soundoutActivitySquirtle.png" alt="Design Preview" width="300" style="display: none;">
 
+        <script>    
+        function show() {
+            /* function for showing image on radio click */
+            const selected = document.querySelector('input[name="design"]:checked').value;
+
+            document.getElementById('imageBulbasaur').style.display = "none";
+            document.getElementById('imageCharmander').style.display = "none";
+            document.getElementById('imageSquirtle').style.display = "none";
+
+            if (selected === "styleBulb") {
+                document.getElementById('imageBulbasaur').style.display = "block";
+            } else if (selected === "styleCharmander") {
+                document.getElementById('imageCharmander').style.display = "block";
+            } else if (selected === "styleSquirtle") {
+                document.getElementById('imageSquirtle').style.display = "block";
+            
+            }
+        }
+    </script>
+
+    </head>
+
+<body style="text-align: center;">
+        
         <!-- displays designs for user to choose from -->
     <h3> Select worksheet style:</h3>
         <div>
@@ -35,9 +57,13 @@
                 <input type="radio" onclick="show()" name="design" value="styleSquirtle">
                 Squirtle
             </label>
-            
-          
+            <!-- add images -->
+        <img id="imageBulbasaur" src="../png/soundoutActivityBulbasaur.png" alt="Design Preview" width="300">
+        <img id="imageCharmander" src="../png/soundoutActivityCharmander.png" alt="Design Preview" width="300">
+        <img id="imageSquirtle" src="../png/soundoutActivitySquirtle.png" alt="Design Preview" width="300">
+        
         </div>
+        
 
 
         <!-- displays text areas for user to input words -->
@@ -67,28 +93,7 @@
         <button type="button" onclick="submitWords()">Generate Worksheet</button>
         <button type="button" onclick="location.href='welcomePage.html'">Back</button>
 
-<script src="/jsScripts/inputHandler.js">
-        
-    function show() {
-        /* function for showing image on radio click */
-        const selected = document.querySelector('input[name="design"]:checked').value;
-
-        document.getElementById('imageBulbasaur').style.display = "none";
-        document.getElementById('imageCharmander').style.display = "none";
-        document.getElementById('imageSquirtle').style.display = "none";
-
-        if (selected === "styleBulb") {
-            document.getElementById('imageBulbasaur').style.display = "block";
-        } else if (selected === "styleCharmander") {
-            document.getElementById('imageCharmander').style.display = "block";
-        } else if (selected === "styleSquirtle") {
-            document.getElementById('imageSquirtle').style.display = "block";
-        
-        }
-    }
-
-</script>
-
+<script src="../jsScripts/inputHandler.js"></script>
 
 </body>
 </html>
