@@ -1,7 +1,6 @@
 //handles input from userInput
 
 function submitWords() {
-    const design = document.querySelector('input[name="design"]:checked').value;
 
     const payload = {
         level1: document.getElementById("level1").value,

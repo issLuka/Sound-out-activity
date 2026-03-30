@@ -861,3 +861,5 @@ You’re set for UI and flow. If you want, I can next show how to generate a PNG
     ## ASAP ADDS
     - Result page: buttons for going back to enter text and edit results
     - Input page: make it a limit so the user can ONLY enter 4 words (levels1-4) and 2 words(level5)
+
+    use seperate fonts for ENglish and Japanese
