@@ -11,15 +11,16 @@ function submitWords() {
         level5: document.getElementById("level5").value,
     };
 
-    fetch("/api/generate", {
+    fetch("/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json"     
+        },
         body: JSON.stringify(payload),
     })
     .then((res) => res.json())
     .then((data) => {
         sessionStorage.setItem("worksheet", data.output || "");
-        location.href = "resultsPage.html";
+        location.href = "./resultsPage.html";
     })
     .catch((err) => alert("Error generating worksheet: " + err));
 }

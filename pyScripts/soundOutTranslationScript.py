@@ -3,49 +3,23 @@
 import random
 import re
 from e2k import P2K #importing e2k phoneme to kana converter
-from g2p_en import G2p #gets g2p library
+from g2p_en import G2p 
 
 #------------------------------------------------------------------------------
 #section for basic variables
 p2k = P2K() #initializing the phoneme to kana converter
-g2p = G2p() #initializing the g2p converter
-kanaList = [] #sets up list for pronunciations
-soundOutList = [] #sets up list for words
-#------------------------------------------------------------------------------
-pathOut = './txtFiles/soundOutput.txt' #path to the output file, change if needed
-
-def getWords(): #function to get words from user input
-
-    counter = 0
-    space = True
-
-    while counter <= 17:
-        
-        counter += 1
-
-        wordInput = input(f"Enter word {counter}: ") #asks user for input of words, change range if needed
-        if wordInput == "": #if the user inputs nothing, it will stop asking for more words
-            break
-        elif space != bool(re.search(r"\s", wordInput)):
-            soundOutList.append(wordInput) #adds the word to the list if there are no spaces
-        else: 
-            #if the user inputs a word with a space, it will ask for a new word
-            print("Please enter a single word without spaces.")
-            counter -= 1 #decrements the counter to allow for a new word input
-
-    return soundOutList #returns the list of words
-    
-randomizeList = soundOutList.copy() #sets up list for randomized words copying og list
-
+g2p = G2p() #initializing the g2p converter (assists with converting words to phonemes for the p2k converter)
+kanaList = [] 
+soundOutList = [] 
 #-------------------------------------------------------------------------------
 
-def randomSpelling(wordList): #self explanatory function to randomize the words in the list
+def randomSpelling(wordList): 
 
     randomList = wordList.copy() #copies the original list to a new list for randomization
-    for i in range(len(randomList)): #loops through each word in the list and randomizes
-        randomizeList[i] = ''.join(random.sample(randomList[i],len(randomizeList[i])))
+    for i in range(len(randomList)): 
+        randomList[i]= ''.join(random.sample(randomList[i],len(randomList[i]))) #randomizes the spelling of each word in the list by shuffling the letters
 
-    return randomizeList #returns the randomized list
+    return randomList
 
 def katakanaize(wordList): #turn og list to kana
 
@@ -53,18 +27,18 @@ def katakanaize(wordList): #turn og list to kana
     for word in wordList:
         try:
             katakana = p2k(g2p(word))
-            kanaList.append(katakana)#loops through each word in the list
+            kanaList.append(katakana)
         except:
             kanaList.append(word)
         
-    return kanaList #returns the kana list
+    return kanaList 
 
 
 #------------------------------------------------------------------------------
 
-def processWordsWithLevels(levelsDict): #section for processing words with levels
+def processWordsWithLevels(levelsDict): #for processing words with levels
 
-    soundOutList = [word for words in levelsDict.values() for word in words]
+    soundOutList = []
     kanaList = []
     randomList = soundOutList.copy()
 
@@ -76,7 +50,7 @@ def processWordsWithLevels(levelsDict): #section for processing words with level
             
     #make randomize spelling and kana list
     randomList = randomSpelling(soundOutList)
-    pronunciationList = katakanaize(soundOutList)
+    kanaList = katakanaize(soundOutList)
     
     return{
         "levelOne":{
@@ -101,45 +75,24 @@ def processWordsWithLevels(levelsDict): #section for processing words with level
         }
     }
 
-def printTests(): #tests to make sure lists work
-    
-    print("Sound Out Activity Words:", *soundOutList) #prints header
-    print("Level 1 Words: ", *levelOneWords, *levelOneKana) #prints level 1 words
-    print("Level 2 Words: ", *levelTwoWords, *levelTwoKana) #prints level 2 words
-    print("Level 3 Words: ", *levelThreeWords, *levelThreeKana) #prints level 3 words
-    print("Level 4 Words: ", *levelFourWords, *levelFourKana) #prints level 4 words
-    print("Level 5 Words: ", *levelFiveWords, *levelFiveKana) #prints level 5 words
+def formatTextOutput(results):
+    lines = []
 
-def printFinalText():
+    levels = [ 
+        ("levelOne", "level 1 words:"),
+        ("levelTwo", "level 2 words:"),
+        ("levelThree", "level 3 words:"),
+        ("levelFour", "level 4 words:"),
+        ("levelFive", "level 5 words:")
+    ]
 
-    with open(pathOut, "w", encoding='utf8') as file: #writes the words and kana to a new file
-        file.write("level 1 words:\n")
-        for i in range(len(levelOneWords)):
-            levelCounter += 1 #increments the level counter
-            file.write(f"{levelCounter}. {levelOneKana[i]} ・ {levelOneWords[i]}\n") #writes the level 1 words and kana to the file
-            if levelCounter >= 4:
-                levelCounter = 0 
-        file.write("\nlevel 2 words:\n")
-        for i in range(len(levelTwoWords)):
-            levelCounter += 1
-            file.write(f"{levelCounter}. {levelTwoKana[i]} ・ {levelTwoWords[i]}\n")
-            if levelCounter >= 4:
-                levelCounter = 0 
-        file.write("\nlevel 3 words:\n")
-        for i in range(len(levelThreeWords)):
-            levelCounter += 1
-            file.write(f"{levelCounter}. {levelThreeKana[i]} ・ {levelThreeWords[i]}\n")  
-            if levelCounter >= 4:
-                levelCounter = 0 
-        file.write("\nlevel 4 words:\n")
-        for i in range(len(levelFourWords)):
-            levelCounter += 1
-            file.write(f"{levelCounter}. {levelFourKana[i]} ・ {levelFourWords[i]}\n")
-            if levelCounter >= 4:
-                levelCounter = 0 
-        file.write("\nlevel 5 words:\n")
-        for i in range(len(levelFiveWords)):
-            levelCounter += 1
-            file.write(f"{levelCounter}. {levelFiveKana[i]} ・ {levelFiveWords[i]}\n")
-        file.write("\n")
+    for key, title in levels:
+        lines.append(title)
+        words = results[key]["randomizedWords"]
+        kana = results[key]["kana"]
+        for i, (word, kana_text) in enumerate(zip(words, kana), start = 1):
+            lines.append(f"{i}. {kana_text} - {word}")
+        lines.append("") #adds blank line
+
+    return "\n".join(lines)
 
