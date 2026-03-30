@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Sound Out Input</title>
+        <style>
+            #imageSquirtle, #imageCharmander, #imageBulbasaur {
+                display: none;
+            }
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+        </style>
+
+        <script>    
+        function show() {
+            /* function for showing image on radio click */
+            const selected = document.querySelector('input[name="design"]:checked').value;
+
+            document.getElementById('imageBulbasaur').style.display = "none";
+            document.getElementById('imageCharmander').style.display = "none";
+            document.getElementById('imageSquirtle').style.display = "none";
+
+            if (selected === "styleBulb") {
+                document.getElementById('imageBulbasaur').style.display = "block";
+            } else if (selected === "styleCharmander") {
+                document.getElementById('imageCharmander').style.display = "block";
+            } else if (selected === "styleSquirtle") {
+                document.getElementById('imageSquirtle').style.display = "block";
+            
+            }
+        }
+    </script>
+
+    </head>
+
+<body style="text-align: center;">
+        
+        <!-- displays designs for user to choose from -->
+    <h3> Select worksheet style:</h3>
+        <div>
+
+            <label>
+                <input type="radio" onclick="show()" name="design" value="styleBulb" checked>
+                Bulbasaur
+            </label>
+
+            <label>
+                <input type="radio" onclick="show()" name="design" value="styleCharmander">
+                Charmander
+            </label>
+
+            <label>
+                <input type="radio" onclick="show()" name="design" value="styleSquirtle">
+                Squirtle
+            </label>
+            <!-- add images -->
+        <img id="imageBulbasaur" src="../png/soundoutActivityBulbasaur.png" alt="Design Preview" width="300">
+        <img id="imageCharmander" src="../png/soundoutActivityCharmander.png" alt="Design Preview" width="300">
+        <img id="imageSquirtle" src="../png/soundoutActivitySquirtle.png" alt="Design Preview" width="300">
+        
+        </div>
+        
+
+
+        <!-- displays text areas for user to input words -->
+    <h1>Enter English Words by Level</h1>
+
+        <div>
+            <h4>Level 1 (up to 4 words)</h4>
+            <textarea id="level1" rows="4" cols="50"></textarea>
+        </div>
+        <div>
+            <h4>Level 2 (up to 4 words)</h4>
+            <textarea id="level2" rows="4" cols="50"></textarea>
+        </div>
+        <div>
+            <h4>Level 3 (up to 4 words)</h4>
+            <textarea id="level3" rows="4" cols="50"></textarea>
+        </div>
+        <div>
+            <h4>Level 4 (up to 4 words)</h4>
+            <textarea id="level4" rows="4" cols="50"></textarea>
+        </div>
+        <div>
+            <h4>Level 5 (up to 2 words)</h4>
+            <textarea id="level5" rows="2" cols="50"></textarea>
+        </div>
+
+        <button type="button" onclick="submitWords()">Generate Worksheet</button>
+        <button type="button" onclick="location.href='/frontend/welcomePage.html'">Back</button>
+
+<script src="/frontend/inputHandler.js"></script>
+
+</body>
+</html>

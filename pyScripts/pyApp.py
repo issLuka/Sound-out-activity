@@ -13,7 +13,7 @@ app = Flask(__name__, static_folder=os.path.join(project_root), static_url_path=
 
 @app.route("/")
 def home():
-    return send_from_directory(project_root, "html/userInput.html")
+    return send_from_directory(project_root, "./frontend/welcomePage.html")
 
 @app.route("/submit", methods=["POST"])
 def submit():
