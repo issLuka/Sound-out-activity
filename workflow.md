@@ -863,3 +863,6 @@ You’re set for UI and flow. If you want, I can next show how to generate a PNG
     - Input page: make it a limit so the user can ONLY enter 4 words (levels1-4) and 2 words(level5)
 
     use seperate fonts for ENglish and Japanese
+
+    make so user can paste in a list of words already made and it will enter in sections of 4 per text box
+    

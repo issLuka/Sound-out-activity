@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify, render_template, send_from_directory
 import os
 import sys
 
-#add scripts to path for import to soundout scipt
+#adds scripts to path for import to soundout scipt
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 app_dir = os.path.dirname(os.path.abspath(__file__))
