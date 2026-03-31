@@ -75,7 +75,7 @@ def processWordsWithLevels(levelsDict): #for processing words with levels
         }
     }
 
-def formatTextOutput(results):
+def formatTextOutput(results): #sets the text up for the results page
     lines = []
 
     levels = [ 
