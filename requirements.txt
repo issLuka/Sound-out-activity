@@ -1,3 +1,6 @@
 flask
 e2k
 g2p-en
+pillow
+torch
+torchaudio
