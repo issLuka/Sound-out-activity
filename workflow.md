@@ -850,3 +850,19 @@ sessionStorage.setItem("sheetDesign", design);
 - (optional) show style on results page
 
 You’re set for UI and flow. If you want, I can next show how to generate a PNG “worksheet page” from the text+style using Pillow (Python) after edit.
+
+
+
+## ------------------------------------------------------------------------------------
+### 3/30/2026 
+- got mostly working really roughly only locally, can go from home page, to enter info, to display simple text results. Results buttons are mostly not functional
+    - want to (for now) set up the edit button to work to edit the output text, add button to generate PNG (need to figure out png pasting)
+    add back to entering text, move the picture selection to the text results page - add another result page to display generated PNG. 
+    ## ASAP ADDS
+    - Result page: buttons for going back to enter text and edit results
+    - Input page: make it a limit so the user can ONLY enter 4 words (levels1-4) and 2 words(level5)
+
+    use seperate fonts for ENglish and Japanese
+
+    make so user can paste in a list of words already made and it will enter in sections of 4 per text box
+    

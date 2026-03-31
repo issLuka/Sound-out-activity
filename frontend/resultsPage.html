@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Generated Worksheet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: #dcb4ec;
+        }
+        #worksheetContent {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: left;
+            white-space: pre-wrap;
+            border: 3px solid #ccc;
+            font-size: 18px;
+            line-height: 2;
+            margin-top: 100px;
+            border-radius: 10px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #mainContainer {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        max-width: 1400px;
+        margin-left: 100px;
+        margin-right: 400px auto;
+        }
+
+        #worksheetSection {
+            flex: 1;
+            min-width: 400px;
+        }
+
+        #designSection {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .designOption {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .designOption input {
+            margin: 0;
+        }
+
+        .designOption img {
+            width: 250px;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Sound Out Activity</h1>
+    <div id="mainContainer">
+
+        <div id = "worksheetSection">
+            <div id="worksheetContent">Loading...</div>
+        </div>
+
+        <div id="designSection">
+            <h3>Select your design:</h3>
+            <label class = "designOption">
+                <input type="radio" onclick="show()" name="design" value="styleBulb" checked>
+                <div>
+                    <strong>Bulbasaur</strong><br>
+                    <img src="../png/soundoutActivityBulbasaur.png" alt="Bublasaur Design" widgth="250">
+                </div>
+            </label>
+
+            <label class = "designOption">
+                <input type="radio" onclick="show()" name="design" value="styleCharmander">
+                <div>
+                    <strong>Charmander</strong><br>
+                    <img src="../png/soundoutActivityCharmander.png" alt="Charmander Design" width="250">
+                </div>
+            </label>
+
+            <label class = "designOption">
+                <input type="radio" onclick="show()" name="design" value="styleSquirtle">
+                <div>
+                    <strong>Squirtle</strong><br>
+                    <img src="../png/soundoutActivitySquirtle.png" alt="Squirtle Design" width="250">
+                </div>
+            </label>
+        </div>
+    </div>
+        <div>
+            <button onclick="downloadWorksheet()">Download as Text</button>
+            <button onclick="editWorksheet()">Edit</button>
+            <button onclick="location.href='/frontend/userInput.html'">Back to Input</button>
+            <button onclick="location.href='/frontend/welcomePage.html'">Back to Home</button>
+            <button >Generate PNG</button>
+    </div>
+    <script src="/frontend/inputHandlerDesign.js"></script>
+    <script>
+
+        let isEditing = false;
+        function editWorksheet() {
+            const worksheetDiv = document.getElementById("worksheetContent");
+            const editButton = document.querySelector("button[onclick='editWorksheet()']");
+
+            if (!isEditing){
+                worksheetDiv.contentEditable = true;
+                worksheetDiv.style.backgroundColor = "#ffffcc"
+                worksheetDiv.style.border = "2px dashed #007BFF";
+                editButton.textContent = "Save";
+                isEditing = true;
+                //sessionStorage.setItem("worksheet", worksheetDiv.textContent);
+
+            } else {
+                worksheetDiv.contentEditable = false;
+                worksheetDiv.style.backgroundColor = "#f5f5f5";
+                worksheetDiv.style.border = "1px solid #ccc";
+                editButton.textContent = "Edit";
+                isEditing = false;
+                sessionStorage.setItem("worksheet", worksheetDiv.textContent);
+            }
+        }
+        
+        const worksheet = sessionStorage.getItem("worksheet") || "No worksheet generated.";
+        document.getElementById("worksheetContent").textContent = worksheet;
+
+        function downloadWorksheet() {
+            const currentWorksheet = sessionStorage.getItem("worksheet");
+            const element = document.createElement("a");
+            element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(currentWorksheet));
+            element.setAttribute("download", "soundout_activity.txt");
+            element.style.display = "none";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+
+        function show() {
+            /* function for showing image on radio click */
+            const selected = document.querySelector('input[name="design"]:checked').value;
+
+            document.getElementById('imageBulbasaur').style.display = "none";
+            document.getElementById('imageCharmander').style.display = "none";
+            document.getElementById('imageSquirtle').style.display = "none";
+
+            if (selected === "styleBulb") {
+                document.getElementById('imageBulbasaur').style.display = "block";
+            } else if (selected === "styleCharmander") {
+                document.getElementById('imageCharmander').style.display = "block";
+            } else if (selected === "styleSquirtle") {
+                document.getElementById('imageSquirtle').style.display = "block";
+            
+            }
+        }
+    </script>
+</body>
+</html>
