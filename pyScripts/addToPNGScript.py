@@ -12,7 +12,7 @@ questionBoxDict = {1: [(275, 497), (275 + textBoxWidth, 497 + textBoxHeight)],
                 4: [(1375, 817), (1375 + textBoxWidth, 817 + textBoxHeight)]}
 
 #0 is levelOne to levelTwo, 1 is levelTwo to levelThree, 2 is levelThree to levelFour, 3 is levelFour to levelFive
-boxDistanceListY1 = [634, 642, 627, 646] 
+boxDistanceListY1 = [634, 644, 630, 646] 
 levelFiveToLevelOneYDistance = 2567
 
 def drawTextBox(questionsDictionary, DistanceListy1):
@@ -39,11 +39,22 @@ def drawTextBox(questionsDictionary, DistanceListy1):
         elif boxCount >= 3 and boxCount <= 15: #FOR LEVELS 2 3 AND 4
             while boxCount >=4 and boxCount <= 7:
                 boxCount += 1
-                boxNKey = boxCount - 4 #the value of the key the for the box that needs (lowkey jank but works so leave)
+                boxNKey = boxCount - 4 #the value of the key the for the box that needs (lowkey jank but works so leave, goes 1 2 3 4)
+                level2YCoord = [levelsBoxes[boxNKey][0][1] + questionDistancesY1[0], levelsBoxes[boxNKey][1][1] + questionDistancesY1[0]]
+                levelsBoxes[boxNKey] = [(levelsBoxes[boxNKey][0][0], level2YCoord[0]), (levelsBoxes[boxNKey][1][0], level2YCoord[1])]
+                draw.rectangle(levelsBoxes[boxNKey], outline="black")
             while boxCount >= 8 and boxCount <= 11:
                 boxCount += 1
                 boxNKey = boxCount - 8
-                i = (boxCount-1)%4
+                level3YCoord = [levelsBoxes[boxNKey][0][1] + questionDistancesY1[1], levelsBoxes[boxNKey][1][1] + questionDistancesY1[1]]
+                levelsBoxes[boxNKey] = [(levelsBoxes[boxNKey][0][0], level3YCoord[0]), (levelsBoxes[boxNKey][1][0], level3YCoord[1])]
+                draw.rectangle(levelsBoxes[boxNKey], outline="black")
+            while boxCount >= 12 and boxCount <= 15:
+                boxCount += 1
+                boxNKey = boxCount - 12
+                level4YCoord = [levelsBoxes[boxNKey][0][1] + questionDistancesY1[2], levelsBoxes[boxNKey][1][1] + questionDistancesY1[2]]
+                levelsBoxes[boxNKey] = [(levelsBoxes[boxNKey][0][0], level4YCoord[0]), (levelsBoxes[boxNKey][1][0], level4YCoord[1])]
+                draw.rectangle(levelsBoxes[boxNKey], outline="black")
 
 
     soundOutDesign.save("../png/soundoutActivityBulbasaurWithText.png")
