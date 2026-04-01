@@ -13,12 +13,10 @@ questionBoxDict = {1: [(275, 497), (275 + textBoxWidth, 497 + textBoxHeight)],
 
 #0 is levelOne to levelTwo, 1 is levelTwo to levelThree, 2 is levelThree to levelFour, 3 is levelFour to levelFive
 boxDistanceListY1 = [634, 642, 627, 646] 
-boxDistainceListY2 = [629, 952, 937, 956]
+boxDistainceListY2 = [629, 644, 630]
 levelFiveToLevelOneYDistance = 2567
 
 def drawTextBox(questionsDictionary, DistanceListy1, DistanceListy2):
-
-# def setTextBoxSize():
         
     boxCount = 0
 
@@ -29,8 +27,8 @@ def drawTextBox(questionsDictionary, DistanceListy1, DistanceListy2):
     while boxCount <= 15:
         boxN = (boxCount+1)%4
         boxCount += 1
-        #print("boxcount: " + str(boxCount))
-        if boxCount <= 3:
+
+        if boxCount <= 3: #FOR LEVELS 1 AND 5
             for i in range(4):
                 i += 1
                 #print("level1 " + str(i))
@@ -40,19 +38,26 @@ def drawTextBox(questionsDictionary, DistanceListy1, DistanceListy2):
                 levelFiveBoxes = {1: [(levelsBoxes[1][0][0], levelsBoxes[1][0][1] + levelFiveToLevelOneYDistance), (levelsBoxes[1][1][0], levelsBoxes[1][1][1] + levelFiveToLevelOneYDistance)],
                                 2: [(levelsBoxes[2][0][0], levelsBoxes[2][0][1] + levelFiveToLevelOneYDistance), (levelsBoxes[2][1][0], levelsBoxes[2][1][1] + levelFiveToLevelOneYDistance)]}
                 ImageDraw.Draw(soundOutDesign).rectangle(levelFiveBoxes[i], outline="black")
-
-
-        elif boxCount >= 4 and boxCount <= 7:
-            while boxCount >=4 and boxCount <= 5:
-                print(boxCount)
+        elif boxCount >= 3 and boxCount <= 15: #FOR LEVELS 2 3 AND 4
+            while boxCount >=4 and boxCount <= 7:
                 boxCount += 1
-            boxNKey = boxN + 1 #the value of the key the for the box that needs changed
-            #print("box1 x1: " + str(levelsBoxes[boxNKey][0][0]) + " y1 : " + str(levelsBoxes[boxNKey][0][1] + questionDistances[0]) )
-            for i in range(4):
-                i += 1
-                #print("level2 " + str(i))
-                #print("levelcoords" + str(levelsBoxes[i]))
-                #ImageDraw.Draw(soundOutDesign).rectangle(levelsBoxes[i], outline="black")
+                boxNKey = boxCount - 4 #the value of the key the for the box that needs (lowkey jank but works so leave)
+
+                questionsLevel2 = {1: [(levelsBoxes[boxNKey][0][0], levelsBoxes[boxNKey][0][1] + questionDistancesY1[boxN]), (levelsBoxes[boxNKey][1][0], levelsBoxes[boxNKey][1][1] + questionDistancesY1[boxN])],
+                                2: [(levelsBoxes[boxNKey][0][0], levelsBoxes[boxNKey][0][1] + questionDistancesY1[boxN]), (levelsBoxes[boxNKey][1][0], levelsBoxes[boxNKey][1][1] + questionDistancesY1[boxN])],
+                                3: [(levelsBoxes[boxNKey][0][0], levelsBoxes[boxNKey][0][1] + questionDistancesY2[boxN]), (levelsBoxes[boxNKey][1][0], levelsBoxes[boxNKey][1][1] + questionDistancesY2[boxN])],
+                                4: [(levelsBoxes[boxNKey][0][0], levelsBoxes[boxNKey][0][1] + questionDistancesY2[boxN]), (levelsBoxes[boxNKey][1][0], levelsBoxes[boxNKey][1][1] + questionDistancesY2[boxN])]}
+                ImageDraw.Draw(soundOutDesign).rectangle(questionsLevel2[boxNKey], outline="black")
+            
+            while boxCount >= 8 and boxCount <= 11:
+                boxCount += 1
+                boxNForLevel3= (boxCount-1)%4
+                boxNKey = boxCount - 8
+                ImageDraw.Draw(soundOutDesign).rectangle((questionsLevel2[boxNKey][0][0], questionsLevel2[boxNKey][0][1] + questionDistancesY1[0], questionsLevel2[boxNKey][1][0], questionsLevel2[boxNKey][1][1] + questionDistancesY1[0]), outline="black")
+                #print(str(questionDistancesY1[boxNForLevel3]) + "boxNKey: " + str(boxNKey) + " boxNForLevel3: " + str(boxNForLevel3) + " questionsLevel3: " + str(questionsLevel3[1]))
+                print((questionsLevel2[boxNKey][0][0], questionsLevel2[boxNKey][0][1] + questionDistancesY1[0], questionsLevel2[boxNKey][1][0], questionsLevel2[boxNKey][1][1] + questionDistancesY1[0]))
+
+
 
     soundOutDesign.save("../png/soundoutActivityBulbasaurWithText.png")
 
