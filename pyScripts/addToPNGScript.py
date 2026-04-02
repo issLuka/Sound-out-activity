@@ -12,12 +12,23 @@ questionBoxDict = {1: [(275, 497), (275 + textBoxWidth, 497 + textBoxHeight)],
                 3: [(275, 817), (275 + textBoxWidth, 817 + textBoxHeight)], 
                 4: [(1375, 817), (1375 + textBoxWidth, 817 + textBoxHeight)]}
 
+levelOneBoxes = copy.deepcopy(questionBoxDict)
+levelTwoBoxes = {}
+levelThreeBoxes = {}
+levelFourBoxes = {}
+levelFiveBoxes = {}
+
 #0 is levelOne to levelTwo, 1 is levelTwo to levelThree, 2 is levelThree to levelFour, 3 is levelFour to levelFive
 boxDistanceListY1 = [634, 644, 630, 646] 
-levelFiveToLevelOneYDistance = 2567
+levelFiveToLevelOneYDistance = 2560
 
 def drawTextBox(questionsDictionary, DistanceListy1):
-        
+    
+    global levelTwoBoxes
+    global levelThreeBoxes
+    global levelFourBoxes
+    global levelFiveBoxes
+
     boxCount = 0
 
     questionDistancesY1 = DistanceListy1.copy()
@@ -25,7 +36,6 @@ def drawTextBox(questionsDictionary, DistanceListy1):
     levelsBoxes = copy.deepcopy(questionsDictionary)
 
     while boxCount <= 15:
-        boxN = (boxCount+1)%4
         boxCount += 1
         if boxCount <= 3: #FOR LEVELS 1 AND 5
             for i in range(4):
@@ -43,40 +53,46 @@ def drawTextBox(questionsDictionary, DistanceListy1):
                 boxNKey = boxCount - 4 #the value of the key the for the box that needs (lowkey jank but works so leave, goes 1 2 3 4)
                 level2YCoord = [levelsBoxes[boxNKey][0][1] + questionDistancesY1[0], levelsBoxes[boxNKey][1][1] + questionDistancesY1[0]]
                 levelsBoxes[boxNKey] = [(levelsBoxes[boxNKey][0][0], level2YCoord[0]), (levelsBoxes[boxNKey][1][0], level2YCoord[1])]
+                levelTwoBoxes = copy.copy(levelsBoxes)
                 draw.rectangle(levelsBoxes[boxNKey], outline="black")
             while boxCount >= 8 and boxCount <= 11:
                 boxCount += 1
                 boxNKey = boxCount - 8
                 level3YCoord = [levelsBoxes[boxNKey][0][1] + questionDistancesY1[1], levelsBoxes[boxNKey][1][1] + questionDistancesY1[1]]
                 levelsBoxes[boxNKey] = [(levelsBoxes[boxNKey][0][0], level3YCoord[0]), (levelsBoxes[boxNKey][1][0], level3YCoord[1])]
+                levelThreeBoxes = copy.copy(levelsBoxes)
                 draw.rectangle(levelsBoxes[boxNKey], outline="black")
             while boxCount >= 12 and boxCount <= 15:
                 boxCount += 1
                 boxNKey = boxCount - 12
                 level4YCoord = [levelsBoxes[boxNKey][0][1] + questionDistancesY1[2], levelsBoxes[boxNKey][1][1] + questionDistancesY1[2]]
                 levelsBoxes[boxNKey] = [(levelsBoxes[boxNKey][0][0], level4YCoord[0]), (levelsBoxes[boxNKey][1][0], level4YCoord[1])]
+                levelFourBoxes = copy.copy(levelsBoxes)
                 draw.rectangle(levelsBoxes[boxNKey], outline="black")
+    return levelTwoBoxes, levelThreeBoxes, levelFourBoxes, levelFiveBoxes
+
+drawTextBox(questionBoxDict, boxDistanceListY1)
+#print(levelOneBoxes, "\n", levelTwoBoxes, "\n", levelThreeBoxes, "\n", levelFourBoxes, "\n", levelFiveBoxes)
 
 def drawText(words):
 
-    
-
-    font = ImageFont.truetype("../comicSans.ttf", 100)
-    
+    wordsList = words
+    testWord = wordsList[0]
     fontSize = 100
+    font = ImageFont.truetype("../comicSans.ttf", fontSize)
     size = None
     while (size is None or size[0] > textBoxWidth or size[1] > textBoxHeight) and fontSize > 0:
-        font = ImageFont.truetype("../comicSans.ttf", fontSize)
-        #size = draw.textbbox(text, font=font)
+        font = font.font_variant(size=fontSize)
+        size = draw.textbbox(levelOneBoxes[1][0], testWord, align = "left", font_size = fontSize)
         fontSize -= 1
 
     
     drawTextBox(questionBoxDict, boxDistanceListY1)
 
-    draw.textbbox(questionBoxDict[1][0], words, font=font)
+    draw.text(questionBoxDict[1][0], testWord, font=font, fill = "black")
 
-wordTest = "スーパーコフロジース - rlspsatsficpuoiuaolirxelgidcecaiii"
-drawText(wordTest)
+wordTestList = ["ネーバリング - bihnirnggeo", "test"]
+drawText(wordTestList)
 
 
 

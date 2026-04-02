@@ -1,4 +1,4 @@
-import soundOutTranslationScript, addToPNGScript
+import soundOutTranslationScript #, addToPNGScript
 from flask import Flask, request, jsonify, render_template, send_from_directory
 import os
 import sys
@@ -25,16 +25,16 @@ def submit():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
     
-@app.route("/design", methods=["POST"]) #TO FINISH: come back when figure out logic for drawing text
-def design():
-    try:
-        data = request.get_json(silent=True) or {}
-        design_choice = data.get("design")
-        # Process the design choice and generate the appropriate PNG
-        # This is a placeholder - replace with actual PNG generation logic
-        return jsonify({"status": "success", "message": "Design processed successfully"})
-    except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 500
+#@app.route("/design", methods=["POST"]) #TO FINISH: come back when figure out logic for drawing text
+#def design():
+#    try:
+#        data = request.get_json(silent=True) or {}
+#        design_choice = data.get("design")
+#        # Process the design choice and generate the appropriate PNG
+#        # This is a placeholder - replace with actual PNG generation logic
+#        return jsonify({"status": "success", "message": "Design processed successfully"})
+#    except Exception as e:
+#        return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

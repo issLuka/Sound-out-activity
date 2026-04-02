@@ -1,19 +1,19 @@
 //handles input from userInput
 
-function getSelectedDesign() {
-    selection = document.getElementById("designSelect").value;
+//function getSelectedDesign() {
+//    selection = document.getElementById("designSelect").value;
 
-    fetch("/design", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ design: selection })
-    })
-    .then((res) => res.json())
-    .then((data) => {
-        console.log(data);
-    })
-    .catch((err) => alert("Error processing design: " + err));
-}
+//    fetch("/design", {
+//       method: "POST",
+//        headers: { "Content-Type": "application/json" },
+//        body: JSON.stringify({ design: selection })
+//    })
+//    .then((res) => res.json())
+//    .then((data) => {
+//        console.log(data);
+//    })
+//    .catch((err) => alert("Error processing design: " + err));
+//}
 
 function submitWords() {
 
