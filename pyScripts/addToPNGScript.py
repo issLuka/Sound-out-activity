@@ -6,7 +6,7 @@ soundOutDesign = Image.open("../png/soundoutActivityBulbasaur.png")
 draw = ImageDraw.Draw(soundOutDesign)
 
 
-textBoxWidth, textBoxHeight = 1010, 70 #initializes global size of the txt box
+textBoxWidth, textBoxHeight = 1010, 70 
 questionBoxDict = {1: [(275, 497), (275 + textBoxWidth, 497 + textBoxHeight)], 
                 2: [(1375, 497), (1375 + textBoxWidth, 497 + textBoxHeight)], 
                 3: [(275, 817), (275 + textBoxWidth, 817 + textBoxHeight)], 
@@ -74,24 +74,48 @@ def drawTextBox(questionsDictionary, DistanceListy1):
 drawTextBox(questionBoxDict, boxDistanceListY1)
 #print(levelOneBoxes, "\n", levelTwoBoxes, "\n", levelThreeBoxes, "\n", levelFourBoxes, "\n", levelFiveBoxes)
 
+def fitSingleLine(draw, text, box, font_path, maxSize=100):
+    (x1, y1), (x2, y2) = box
+    box_width = x2 - x1
+    box_height = y2 - y1
+
+    font_size = maxSize
+
+    while font_size > 5:
+        font = ImageFont.truetype(font_path, font_size)
+
+        bbox = draw.textbbox((0, 0), text, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
+
+        if text_width <= box_width and text_height <= box_height:
+            return font, text_width, text_height
+
+        font_size -= 1
+
+    return font, text_width, text_height
+    
 def drawText(words):
 
     wordsList = words
     testWord = wordsList[0]
-    fontSize = 100
-    font = ImageFont.truetype("../comicSans.ttf", fontSize)
-    size = None
-    while (size is None or size[0] > textBoxWidth or size[1] > textBoxHeight) and fontSize > 0:
-        font = font.font_variant(size=fontSize)
-        size = draw.textbbox(levelOneBoxes[1][0], testWord, align = "left", font_size = fontSize)
-        fontSize -= 1
+    box = questionBoxDict[1]
 
     
-    drawTextBox(questionBoxDict, boxDistanceListY1)
+    fontSize = 100
+    font, textWidth, textHeight = fitSingleLine(draw, testWord, box, "../japaneseMonospace.ttf", maxSize = 100)
 
-    draw.text(questionBoxDict[1][0], testWord, font=font, fill = "black")
+    (x1, y1), (x2, y2) = box
 
-wordTestList = ["ネーバリング - bihnirnggeo", "test"]
+    x = box[0][0]
+    y = box[0][1]
+    
+
+    #drawTextBox(questionBoxDict, boxDistanceListY1)
+
+    draw.text((x, y), testWord, font = font, fill = "black", encoding = "UTF-8")
+
+wordTestList = ["ネーバリング - bihnirnggeooooooooo", "test"]
 drawText(wordTestList)
 
 
