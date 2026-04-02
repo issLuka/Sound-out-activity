@@ -5,6 +5,7 @@ import copy
 soundOutDesign = Image.open("../png/soundoutActivityBulbasaur.png")
 draw = ImageDraw.Draw(soundOutDesign)
 
+
 textBoxWidth, textBoxHeight = 1010, 70 #initializes global size of the txt box
 questionBoxDict = {1: [(275, 497), (275 + textBoxWidth, 497 + textBoxHeight)], 
                 2: [(1375, 497), (1375 + textBoxWidth, 497 + textBoxHeight)], 
@@ -56,20 +57,27 @@ def drawTextBox(questionsDictionary, DistanceListy1):
                 levelsBoxes[boxNKey] = [(levelsBoxes[boxNKey][0][0], level4YCoord[0]), (levelsBoxes[boxNKey][1][0], level4YCoord[1])]
                 draw.rectangle(levelsBoxes[boxNKey], outline="black")
 
+def drawText(words):
 
-    soundOutDesign.save("../png/soundoutActivityBulbasaurWithText.png")
+    
 
-drawTextBox(questionBoxDict, boxDistanceListY1)
+    font = ImageFont.truetype("../comicSans.ttf", 100)
+    
+    fontSize = 100
+    size = None
+    while (size is None or size[0] > textBoxWidth or size[1] > textBoxHeight) and fontSize > 0:
+        font = ImageFont.truetype("../comicSans.ttf", fontSize)
+        #size = draw.textbbox(text, font=font)
+        fontSize -= 1
 
-font = ImageFont.truetype("../comicSans.ttf", 100)
-text = "this is a test"
-fontSize = 100
-#size = None
+    
+    drawTextBox(questionBoxDict, boxDistanceListY1)
 
-#print ("question 1 x coordinates: " + str(questionBoxDict["question 1"][0][0] + 2) + " to " + str(questionBoxDict["question 1"][1][0]))
-#print ("question 1 y coordinates: " + str(questionBoxDict["question 1"][0][1]) + " to " + str(questionBoxDict["question 1"][1][1]))
-#ImageDraw.Draw(soundOutDesign).rectangle(questionBoxDict["question 1"], outline="black")
-#ImageDraw.Draw(soundOutDesign).rectangle(questionBoxDict["question 2"], outline="black")
-#ImageDraw.Draw(soundOutDesign).rectangle(questionBoxDict["question 3"], outline="black")
-#ImageDraw.Draw(soundOutDesign).rectangle(questionBoxDict["question 4"], outline="black")
-#soundOutDesign.save("../png/soundoutActivityBulbasaurWithText.png")
+    draw.textbbox(questionBoxDict[1][0], words, font=font)
+
+wordTest = "スーパーコフロジース - rlspsatsficpuoiuaolirxelgidcecaiii"
+drawText(wordTest)
+
+
+
+soundOutDesign.save("../png/soundoutActivityBulbasaurWithText.png")

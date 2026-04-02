@@ -82,7 +82,7 @@
         <div id="designSection">
             <h3>Select your design:</h3>
             <label class = "designOption">
-                <input type="radio" onclick="show()" name="design" value="styleBulb" checked>
+                <input type="radio" onclick="getSelectedDesign()" name="design" value="styleBulb" checked>
                 <div>
                     <strong>Bulbasaur</strong><br>
                     <img src="../png/soundoutActivityBulbasaur.png" alt="Bublasaur Design" widgth="250">
@@ -90,7 +90,7 @@
             </label>
 
             <label class = "designOption">
-                <input type="radio" onclick="show()" name="design" value="styleCharmander">
+                <input type="radio" onclick="getSelectedDesign()" name="design" value="styleCharmander">
                 <div>
                     <strong>Charmander</strong><br>
                     <img src="../png/soundoutActivityCharmander.png" alt="Charmander Design" width="250">
@@ -98,7 +98,7 @@
             </label>
 
             <label class = "designOption">
-                <input type="radio" onclick="show()" name="design" value="styleSquirtle">
+                <input type="radio" onclick="getSelectedDesign()" name="design" value="styleSquirtle">
                 <div>
                     <strong>Squirtle</strong><br>
                     <img src="../png/soundoutActivitySquirtle.png" alt="Squirtle Design" width="250">
@@ -111,7 +111,7 @@
             <button onclick="editWorksheet()">Edit</button>
             <button onclick="location.href='/frontend/userInput.html'">Back to Input</button>
             <button onclick="location.href='/frontend/welcomePage.html'">Back to Home</button>
-            <button >Generate PNG</button>
+            <button onclick="">Generate PNG</button>
     </div>
     <script src="/frontend/inputHandlerDesign.js"></script>
     <script>
@@ -153,23 +153,6 @@
             document.body.removeChild(element);
         }
 
-        function show() {
-            /* function for showing image on radio click */
-            const selected = document.querySelector('input[name="design"]:checked').value;
-
-            document.getElementById('imageBulbasaur').style.display = "none";
-            document.getElementById('imageCharmander').style.display = "none";
-            document.getElementById('imageSquirtle').style.display = "none";
-
-            if (selected === "styleBulb") {
-                document.getElementById('imageBulbasaur').style.display = "block";
-            } else if (selected === "styleCharmander") {
-                document.getElementById('imageCharmander').style.display = "block";
-            } else if (selected === "styleSquirtle") {
-                document.getElementById('imageSquirtle').style.display = "block";
-            
-            }
-        }
     </script>
 </body>
 </html>
