@@ -19,8 +19,8 @@ levelFourBoxes = {}
 levelFiveBoxes = {}
 
 #0 is levelOne to levelTwo, 1 is levelTwo to levelThree, 2 is levelThree to levelFour, 3 is levelFour to levelFive
-boxDistanceListY1 = [634, 644, 630, 646] 
-levelFiveToLevelOneYDistance = 2560
+boxDistanceListY1 = [634, 644, 625, 646] 
+levelFiveToLevelOneYDistance = 2555
 
 def drawTextBox(questionsDictionary, DistanceListy1):
     
@@ -65,7 +65,7 @@ def drawTextBox(questionsDictionary, DistanceListy1):
             while boxCount >= 12 and boxCount <= 15:
                 boxCount += 1
                 boxNKey = boxCount - 12
-                level4YCoord = [levelsBoxes[boxNKey][0][1] + questionDistancesY1[2], levelsBoxes[boxNKey][1][1] + questionDistancesY1[2]]
+                level4YCoord = [levelsBoxes[boxNKey][0][1] + questionDistancesY1[2], levelsBoxes[boxNKey][1][1] + (questionDistancesY1[2]+5)]
                 levelsBoxes[boxNKey] = [(levelsBoxes[boxNKey][0][0], level4YCoord[0]), (levelsBoxes[boxNKey][1][0], level4YCoord[1])]
                 levelFourBoxes = copy.copy(levelsBoxes)
                 draw.rectangle(levelsBoxes[boxNKey])
@@ -120,7 +120,7 @@ def drawText(words):
             
 
 wordTestDict = {"Level 1:": ["ネーバリング - bihnirnggeo0000000000000ooooooo", "poop", "test 1", "テスト３"], "Level 2:": ["one", "two", "three", "four"],
-                "Level 3:": ["five", "six", "seven", "eight"], "Level 4:": ["butt", "ten", "eleven", "twelve"], "Level 5:": ["thirteen", "fourteen"]}
+                "Level 3:": ["five", "six", "seven", "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"], "Level 4:": ["butt", "teneeeeee", "eleven", "twelve"], "Level 5:": ["thirteen", "fourteen"]}
 drawText(wordTestDict)
 
 
