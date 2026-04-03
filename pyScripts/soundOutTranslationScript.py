@@ -79,11 +79,11 @@ def formatTextOutput(results): #sets the text up for the results page
     lines = []
 
     levels = [ 
-        ("levelOne", "level 1 words:"),
-        ("levelTwo", "level 2 words:"),
-        ("levelThree", "level 3 words:"),
-        ("levelFour", "level 4 words:"),
-        ("levelFive", "level 5 words:")
+        ("levelOne", "Level 1:"),
+        ("levelTwo", "Level 2:"),
+        ("levelThree", "Level 3:"),
+        ("levelFour", "Level 4:"),
+        ("levelFive", "Level 5:")
     ]
 
     for key, title in levels:
@@ -91,7 +91,7 @@ def formatTextOutput(results): #sets the text up for the results page
         words = results[key]["randomizedWords"]
         kana = results[key]["kana"]
         for i, (word, kana_text) in enumerate(zip(words, kana), start = 1):
-            lines.append(f"{i}. {kana_text} - {word}")
+            lines.append(f"{kana_text} - {word}")
         lines.append("") #adds blank line
 
     return "\n".join(lines)

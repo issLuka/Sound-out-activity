@@ -81,7 +81,7 @@ def fitSingleLine(draw, text, box, font_path, maxSize=100):
 
     font_size = maxSize
 
-    while font_size > 5:
+    while font_size > 10:
         font = ImageFont.truetype(font_path, font_size)
 
         bbox = draw.textbbox((0, 0), text, font=font)
@@ -97,26 +97,32 @@ def fitSingleLine(draw, text, box, font_path, maxSize=100):
     
 def drawText(words):
 
+    levelsDict = {(i+1):v for i, v in enumerate([questionBoxDict, levelTwoBoxes, levelThreeBoxes, levelFourBoxes, levelFiveBoxes])}
+
     wordsList = words
-    testWord = wordsList[0]
-    box = questionBoxDict[1]
 
-    
-    fontSize = 100
-    font, textWidth, textHeight = fitSingleLine(draw, testWord, box, "../japaneseMonospace.ttf", maxSize = 100)
+    for dictCount in range(len(levelsDict)): #loops thru all boxes
 
-    (x1, y1), (x2, y2) = box
+        dictCount += 1
+        box = levelsDict[dictCount]
+        #print("box# ", str(box))
 
-    x = box[0][0]
-    y = box[0][1]
-    
+        for i in range(len(wordsList["Level "+str(dictCount)+":"])): #loops thru each level
+            key = i + 1
+            testWord = wordsList["Level "+str(key)+":"][i]
+            boxList = box[key]
+            print(key, " ", i)
+            font, textWidth, textHeight = fitSingleLine(draw, testWord, boxList, "../japaneseMonospace.ttf", maxSize = 100)
 
-    #drawTextBox(questionBoxDict, boxDistanceListY1)
+            x = boxList[0][0]
+            y = boxList[1][1]
+            
+            draw.text((x, y), testWord, font = font, anchor = "ls", fill = "black", encoding = "UTF-8")
+            
 
-    draw.text((x, y), testWord, font = font, fill = "black", encoding = "UTF-8")
-
-wordTestList = ["ネーバリング - bihnirnggeooooooooo", "test"]
-drawText(wordTestList)
+wordTestDict = {"Level 1:": ["ネーバリング - bihnirnggeo0000000000000ooooooo", "test", "test 1", "テスト３"], "Level 2:": ["one", "two", "three", "four"],
+                "Level 3:": ["five", "six", "seven", "eight"], "Level 4:": ["nine", "ten", "eleven", "twelve"], "Level 5:": ["thirteen", "fourteen"]}
+drawText(wordTestDict)
 
 
 
