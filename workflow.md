@@ -866,3 +866,4 @@ You’re set for UI and flow. If you want, I can next show how to generate a PNG
 
     make so user can paste in a list of words already made and it will enter in sections of 4 per text box
     
+    want to use https://www.kfstudio.net/font/kfhimaji/ font, but awaiting permission
