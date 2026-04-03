@@ -1,9 +1,21 @@
 from PIL import Image, ImageDraw, ImageFont
-import math
 import copy
 
-soundOutDesign = Image.open("../png/soundoutActivityBulbasaur.png")
-draw = ImageDraw.Draw(soundOutDesign)
+imageBulb = Image.open("../png/soundoutActivityBulbasaur.png")
+imageChar = Image.open("../png/soundoutActivityCharmander.png")
+imageSquirt = Image.open("../png/soundoutActivitySquirtle.png")
+
+def userChoice(input):
+
+    if input == "styleBulb":
+        soundoutDesign = imageBulb
+        return soundoutDesign
+    elif input == "styleCharmander":
+        soundoutDesign = imageChar
+        return soundoutDesign
+    elif input == "styleSquirtle":
+        soundoutDesign = imageSquirt
+        return soundoutDesign
 
 
 textBoxWidth, textBoxHeight = 1010, 70 
@@ -38,15 +50,15 @@ def drawTextBox(questionsDictionary, DistanceListy1):
     while boxCount <= 15:
         boxCount += 1
         if boxCount <= 3: #FOR LEVELS 1 AND 5
-            for i in range(4):
-                i += 1
+            #for i in range(4):
+                #i += 1
                 #print("level1 " + str(i))
-                draw.rectangle(levelsBoxes[i])
+                #draw.rectangle(levelsBoxes[i])
             for i in range(2):
                 i += 1
                 levelFiveBoxes = {1: [(levelsBoxes[1][0][0], levelsBoxes[1][0][1] + levelFiveToLevelOneYDistance), (levelsBoxes[1][1][0], levelsBoxes[1][1][1] + levelFiveToLevelOneYDistance)],
                                 2: [(levelsBoxes[2][0][0], levelsBoxes[2][0][1] + levelFiveToLevelOneYDistance), (levelsBoxes[2][1][0], levelsBoxes[2][1][1] + levelFiveToLevelOneYDistance)]}
-                draw.rectangle(levelFiveBoxes[i])
+                #draw.rectangle(levelFiveBoxes[i])
         elif boxCount >= 3 and boxCount <= 15: #FOR LEVELS 2 3 AND 4
             while boxCount >=4 and boxCount <= 7:
                 boxCount += 1
@@ -54,24 +66,23 @@ def drawTextBox(questionsDictionary, DistanceListy1):
                 level2YCoord = [levelsBoxes[boxNKey][0][1] + questionDistancesY1[0], levelsBoxes[boxNKey][1][1] + questionDistancesY1[0]]
                 levelsBoxes[boxNKey] = [(levelsBoxes[boxNKey][0][0], level2YCoord[0]), (levelsBoxes[boxNKey][1][0], level2YCoord[1])]
                 levelTwoBoxes = copy.copy(levelsBoxes)
-                draw.rectangle(levelsBoxes[boxNKey])
+                #draw.rectangle(levelsBoxes[boxNKey])
             while boxCount >= 8 and boxCount <= 11:
                 boxCount += 1
                 boxNKey = boxCount - 8
                 level3YCoord = [levelsBoxes[boxNKey][0][1] + questionDistancesY1[1], levelsBoxes[boxNKey][1][1] + questionDistancesY1[1]]
                 levelsBoxes[boxNKey] = [(levelsBoxes[boxNKey][0][0], level3YCoord[0]), (levelsBoxes[boxNKey][1][0], level3YCoord[1])]
                 levelThreeBoxes = copy.copy(levelsBoxes)
-                draw.rectangle(levelsBoxes[boxNKey])
+                #draw.rectangle(levelsBoxes[boxNKey])
             while boxCount >= 12 and boxCount <= 15:
                 boxCount += 1
                 boxNKey = boxCount - 12
-                level4YCoord = [levelsBoxes[boxNKey][0][1] + questionDistancesY1[2], levelsBoxes[boxNKey][1][1] + (questionDistancesY1[2]+5)]
+                level4YCoord = [levelsBoxes[boxNKey][0][1] + questionDistancesY1[2], levelsBoxes[boxNKey][1][1] + questionDistancesY1[2]]
                 levelsBoxes[boxNKey] = [(levelsBoxes[boxNKey][0][0], level4YCoord[0]), (levelsBoxes[boxNKey][1][0], level4YCoord[1])]
                 levelFourBoxes = copy.copy(levelsBoxes)
-                draw.rectangle(levelsBoxes[boxNKey])
+                #draw.rectangle(levelsBoxes[boxNKey])
     return levelTwoBoxes, levelThreeBoxes, levelFourBoxes, levelFiveBoxes
 
-drawTextBox(questionBoxDict, boxDistanceListY1)
 
 def fitSingleLine(draw, text, box, font_path, maxSize=100):
     (x1, y1), (x2, y2) = box
@@ -94,7 +105,9 @@ def fitSingleLine(draw, text, box, font_path, maxSize=100):
 
     return font, text_width, text_height
     
-def drawText(words):
+def drawText(words, draw, soundoutDesign):
+
+    drawTextBox(questionBoxDict, boxDistanceListY1)
 
     levelsDict = {(i+1):v for i, v in enumerate([questionBoxDict, levelTwoBoxes, levelThreeBoxes, levelFourBoxes, levelFiveBoxes])}
 
@@ -116,12 +129,15 @@ def drawText(words):
             y = boxList[1][1]
             
             draw.text((x, y), testWord, font = font, anchor = "ls", fill = "black", encoding = "UTF-8")
-            
 
-wordTestDict = {"Level 1:": ["ネーバリング - bihnirnggeo0000000000000ooooooo", "poop", "test 1", "テスト３"], "Level 2:": ["one", "two", "three", "four"],
-                "Level 3:": ["five", "six", "seven", "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"], "Level 4:": ["butt", "teneeeeee", "eleven", "twelve"], "Level 5:": ["thirteen", "fourteen"]}
-drawText(wordTestDict)
+    soundoutDesign.save("../png/soundoutActivityFinal.png")
+
+def imageGeneration(input, words):
+    soundoutDesign = userChoice(input)
+
+    draw = ImageDraw.Draw(soundoutDesign)
+
+    drawText(words, draw, soundoutDesign)
 
 
 
-soundOutDesign.save("../png/soundoutActivityBulbasaurWithText.png")
