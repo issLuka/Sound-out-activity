@@ -53,23 +53,23 @@ def processWordsWithLevels(levelsDict): #for processing words with levels
     kanaList = katakanaize(soundOutList)
     
     return{
-        "levelOne":{
+        "level1":{
             "randomizedWords": randomList[0:4],
             "kana": kanaList[0:4]
         },
-        "levelTwo":{
+        "level2":{
             "randomizedWords": randomList[4:8],
             "kana": kanaList[4:8]  
         },
-        "levelThree":{
+        "level3":{
             "randomizedWords": randomList[8:12],
             "kana": kanaList[8:12]
         },
-        "levelFour":{
+        "level4":{
             "randomizedWords": randomList[12:16],
             "kana": kanaList[12:16]
         },
-        "levelFive":{
+        "level5":{
             "randomizedWords": randomList[16:18],
             "kana": kanaList[16:18]
         }
@@ -79,11 +79,11 @@ def formatTextOutput(results): #sets the text up for the results page
     lines = []
 
     levels = [ 
-        ("levelOne", "Level 1:"),
-        ("levelTwo", "Level 2:"),
-        ("levelThree", "Level 3:"),
-        ("levelFour", "Level 4:"),
-        ("levelFive", "Level 5:")
+        ("level1", "Level 1:"),
+        ("level2", "Level 2:"),
+        ("level3", "Level 3:"),
+        ("level4", "Level 4:"),
+        ("level5", "Level 5:")
     ]
 
     for key, title in levels:

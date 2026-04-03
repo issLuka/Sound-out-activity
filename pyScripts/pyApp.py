@@ -31,11 +31,11 @@ def submit():
 def design():
     try:
         data = request.get_json(silent=True) or {}
-        textData = request.get_json(silent=True) or {}
-        result = soundOutTranslationScript.processWordsWithLevels(textData) #process the words with levels and get the kana and randomized words
-        text = soundOutTranslationScript.formatTextOutput(result) #format the text output
         designChoice = data.get("design")
-        addToPNGScript.imageGeneration(designChoice, text)
+
+        result = soundOutTranslationScript.processWordsWithLevels(data) #process the words with levels and get the kana and randomized words
+        #text = soundOutTranslationScript.formatTextOutput(result) #format the text output
+        addToPNGScript.imageGeneration(designChoice, result)
         return jsonify({"status": "success", "message": "Design processed successfully"})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
