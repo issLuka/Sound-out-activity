@@ -43,9 +43,9 @@ def processWordsWithLevels(levelsDict): #for processing words with levels
     randomList = soundOutList.copy()
 
     for level in ["level1", "level2", "level3", "level4", "level5"]:
-        words_str = levelsDict.get(level, "").strip()
-        if words_str:
-            words = [w.strip() for w in re.split(r'[\n,;]+', words_str) if w.strip()]
+        wordStr = levelsDict.get(level, "").strip()
+        if wordStr:
+            words = [w.strip() for w in re.split(r'[\n,;]+', wordStr) if w.strip()]
             soundOutList.extend(words)
             
     #make randomize spelling and kana list

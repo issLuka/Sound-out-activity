@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "UTF-8">
+        <title>Generated Worksheet</title>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 10px;
+            padding-bottom: 5px;
+            background: #dcb4ec;
+        }
+        #worksheetContent {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: left;
+            white-space: pre-wrap;
+            border: 3px solid #ccc;
+            font-size: 18px;
+            line-height: 2;
+            margin-top: 100px;
+            border-radius: 10px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #Buttons {
+            margin-top: auto;
+            display: flex;
+            justify-content: center; 
+            gap: 15px;
+            padding: 15px 0;
+            padding-top: 20px;
+            background: #e7d2f4;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        #mainContainer {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            max-width: 1400px;
+            margin-left: 100px;
+            margin-right: 400px auto;
+        }
+
+        #worksheetSection {
+            flex: 1;
+            min-width: 400px;
+        }
+
+        #designSection {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .designOption {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .designOption input {
+            margin: 0;
+        }
+
+        .designOption img {
+            width: 250px;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+
+        }
+        </style>
+    </head>
+    <body>
+        <h1> Your worksheet!</h1>
+        <div id = "worksheetSection">
+        </div>
+        <div id="designSection">
+            <h3>Try a different design!</h3>
+            <label class = "designOption">
+                <input type="radio" onclick="getSelectedDesign()" name="design" value="styleBulb" checked>
+                <div>
+                    <strong>Bulbasaur</strong><br>
+                    <img src="../png/soundoutActivityBulbasaur.png" alt="Bublasaur Design" widgth="250">
+                </div>
+            </label>
+
+            <label class = "designOption">
+                <input type="radio" onclick="getSelectedDesign()" name="design" value="styleCharmander">
+                <div>
+                    <strong>Charmander</strong><br>
+                    <img src="../png/soundoutActivityCharmander.png" alt="Charmander Design" width="250">
+                </div>
+            </label>
+
+            <label class = "designOption">
+                <input type="radio" onclick="getSelectedDesign()" name="design" value="styleSquirtle">
+                <div>
+                    <strong>Squirtle</strong><br>
+                    <img src="../png/soundoutActivitySquirtle.png" alt="Squirtle Design" width="250">
+                </div>
+            </label>
+        </div>
+    </body>
+        <div id="Buttons">
+        <button onclick="downloadWorksheet()">Download as PNG</button>
+        <button onclick="location.href='/frontend/resultsPage.html'">Back to edit</button>
+        <button onclick="location.href='/frontend/userInput.html'">Back to Input</button>
+        <button onclick="location.href='/frontend/welcomePage.html'">Back to Home</button>
+    </div>
+</html>

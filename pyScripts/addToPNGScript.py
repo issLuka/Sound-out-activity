@@ -72,7 +72,6 @@ def drawTextBox(questionsDictionary, DistanceListy1):
     return levelTwoBoxes, levelThreeBoxes, levelFourBoxes, levelFiveBoxes
 
 drawTextBox(questionBoxDict, boxDistanceListY1)
-#print(levelOneBoxes, "\n", levelTwoBoxes, "\n", levelThreeBoxes, "\n", levelFourBoxes, "\n", levelFiveBoxes)
 
 def fitSingleLine(draw, text, box, font_path, maxSize=100):
     (x1, y1), (x2, y2) = box

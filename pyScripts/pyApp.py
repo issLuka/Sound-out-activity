@@ -24,7 +24,8 @@ def submit():
         return jsonify({"status": "success", "output": text})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
-    
+
+
 #@app.route("/design", methods=["POST"]) #TO FINISH: come back when figure out logic for drawing text
 #def design():
 #    try:
