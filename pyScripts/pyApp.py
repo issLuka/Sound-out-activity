@@ -1,8 +1,6 @@
 import soundOutTranslationScript, addToPNGScript
-from flask import Flask, request, jsonify, render_template, send_from_directory
-import os
-import sys
-
+from flask import Flask, request, jsonify, send_from_directory, send_file
+import os, sys
 #adds scripts to path for import to soundout scipt
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -10,7 +8,54 @@ app_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(app_dir)
 
 app = Flask(__name__, static_folder=os.path.join(project_root), static_url_path="")
-textHolder = []
+
+def processEdited(editedWords):
+    processed = {
+        "level1":{
+            "kana":[],
+            "randomizedWords":[]},
+        "level2":{
+            "kana":[],
+            "randomizedWords":[]},
+        "level3":{
+            "kana":[],
+            "randomizedWords":[]},
+        "level4":{
+            "kana":[],
+            "randomizedWords":[]},
+        "level5":{
+            "kana":[],
+            "randomizedWords":[]}
+        }
+    
+    lines  = editedWords.strip().split("\n")
+    currentLevel = None
+
+    for line in lines:
+        line = line.strip()
+
+        if line.startswith("level"):
+            if "1" in line:
+                currentLevel = "level1"
+            elif "2" in line:
+                currentLevel = "level2"
+            elif "3" in line:
+                currentLevel = "level3"
+            elif "4" in line:
+                currentLevel = "level4"
+            elif "5" in line:
+                currentLevel = "level5"
+            continue
+
+        if not line:
+            continue
+
+        if " - " in line and currentLevel:
+            kana, word = line.split(" - ", 1)
+            processed[currentLevel]["kana"].append(kana.strip())
+            processed[currentLevel]["randomizedWords"].append(word.strip())
+    print(processed)
+    return processed
 
 @app.route("/")
 def home():
@@ -19,26 +64,40 @@ def home():
 @app.route("/submit", methods=["POST"])
 def submit():
     try:
-        data = request.get_json(silent=True) or {}
-        result = soundOutTranslationScript.processWordsWithLevels(data) #process the words with levels and get the kana and randomized words
-        text = soundOutTranslationScript.formatTextOutput(result) #format the text output
-        return jsonify({"status": "success", "output": text})
+        data   = request.get_json(silent=True) or {}
+        result = soundOutTranslationScript.processWordsWithLevels(data)
+        text   = soundOutTranslationScript.formatTextOutput(result)
+        return jsonify({"status": "success", "output": text, "processed": result})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
-
-
-@app.route("/design", methods=["POST"]) #TO FINISH: come back when figure out logic for drawing text
+    
+@app.route("/generatePNG", methods=["POST"]) #TO FINISH: come back when figure out logic for drawing text
 def design():
     try:
-        data = request.get_json(silent=True) or {}
+        data = request.get_json(silent = True) or {}
         designChoice = data.get("design")
+        processed = data.get("processed")
+        editedText = data.get("editedWorksheet")
 
-        result = soundOutTranslationScript.processWordsWithLevels(data) #process the words with levels and get the kana and randomized words
-        #text = soundOutTranslationScript.formatTextOutput(result) #format the text output
-        addToPNGScript.imageGeneration(designChoice, result)
-        return jsonify({"status": "success", "message": "Design processed successfully"})
+        if not designChoice or not processed:
+            return jsonify({"status": "error", "message": "Missing design or processed data"}), 400
+
+        if editedText:
+            processed = processEdited(editedText)
+            imageGen = addToPNGScript.imageGeneration(designChoice, processed)   
+            print(processed)
+        imageGen = addToPNGScript.imageGeneration(designChoice, processed) 
+
+
+        return send_file(
+            imageGen,
+            mimetype = "image/png",
+            as_attachment=False,
+            download_name = "soundout_activity.png"
+        )
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host = "127.0.0.1", port = 5000)
