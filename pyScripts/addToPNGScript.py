@@ -4,7 +4,7 @@ import copy, os
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PNG_DIR = os.path.join(SCRIPT_DIR,"..", "png")
-FONT_PATH = os.path.join(SCRIPT_DIR, "..", "japaneseMonospace.ttf")
+FONT_PATH = os.path.join(SCRIPT_DIR, "..", "KFhimaji.otf")
 
 def userChoice(input):
     paths = {

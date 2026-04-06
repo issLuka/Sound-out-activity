@@ -34,7 +34,7 @@ function submitWords() {
 function generatePNG() {
     const design = document.querySelector("input[name='design']:checked")?.value;
     const processed = JSON.parse(sessionStorage.getItem("processed") || "null");
-    const editedWorksheet = isEditing ? document.getElementById("worksheet").textContent : null;
+    const editedWorksheet = hasEdits ? document.getElementById("worksheetContent").textContent : null;
 
     console.log("DEBUG: hasEdits =", hasEdits);
     console.log("DEBUG: editedWorksheet =", editedWorksheet);

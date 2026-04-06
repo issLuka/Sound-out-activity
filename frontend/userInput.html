@@ -11,6 +11,12 @@
             cursor: pointer;
             box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
         }    
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: #dcb4ec;
+        }
         </style>
     </head>
 
@@ -20,30 +26,157 @@
     <h1>Enter English Words by Level</h1>
 
         <div>
-            <h4>Level 1 (up to 4 words)</h4>
+            <h4>Level 1 (4 words)<br><span style="font-size: 0.8em;">press space after each word<br>入力した言葉の後でエンターキー押して</span>
+</h4>
             <textarea id="level1" rows="4" cols="50"></textarea>
+            <div id="level1-count"></div>
         </div>
         <div>
-            <h4>Level 2 (up to 4 words)</h4>
+            <h4>Level 2 (4 words)</h4>
             <textarea id="level2" rows="4" cols="50"></textarea>
+            <div id="level2-count"></div>
         </div>
-        <div>
-            <h4>Level 3 (up to 4 words)</h4>
+        <div >
+            <h4>Level 3 (4 words)</h4>
             <textarea id="level3" rows="4" cols="50"></textarea>
+            <div id="level3-count"></div>
         </div>
-        <div>
-            <h4>Level 4 (up to 4 words)</h4>
+        <div >
+            <h4>Level 4 (4 words)</h4>
             <textarea id="level4" rows="4" cols="50"></textarea>
+            <div id="level4-count"></div>
         </div>
-        <div>
-            <h4>Level 5 (up to 2 words)</h4>
+        <div >
+            <h4>Level 5 (2 words)</h4>
             <textarea id="level5" rows="2" cols="50"></textarea>
+            <div id="level5-count"></div>
         </div>
 
-        <button type="button" onclick="submitWords()">Generate Worksheet</button>
-        <button type="button" onclick="location.href='/frontend/welcomePage.html'">Back</button>
+        <button type="button" onclick="submitWords()">📝<b>Generate Worksheet</b><br><b>ワークシートを作るへ</b></button>
+        <button type="button" onclick="location.href='/frontend/welcomePage.html'">🏠<b>Back</b><br><b>ホームページへ</b></button>
 
 <script src="/frontend/inputHandler.js"></script>
+<script>
+    // Logic for max words in text boxes, word count, jumping between boxes, and paste handling.
+    function limitWords(textareas, limits, counters) {
+        function getWords(text) {
+            return text.trim().split(/\s+/).filter(wrd => wrd.length > 0);
+        }
+
+        textareas.forEach((textarea, index) => {
+            function updateCounter() {
+                let words = getWords(textarea.value);
+                let remaining = limits[index] - words.length;
+
+                if (remaining <= 0) {
+                    counters[index].innerHTML = "Press Enter<br>エンターキー押してください";
+                    counters[index].style.color = "ForestGreen";
+                } else {
+                    counters[index].innerHTML = `${remaining} words left<br>残り${remaining}語`;
+                    counters[index].style.color = "black";
+                }
+            }
+
+            // Handle paste events: parse pasted text by newlines/commas/semicolons, take only up to limit, format as one word per line
+            textarea.addEventListener("paste", function (event) {
+                event.preventDefault();
+                let pasted = (event.clipboardData || window.clipboardData).getData('text');
+                let words = pasted.trim().split(/[\n,;]+/).filter(w => w.trim().length > 0);
+                let take = words.slice(0, limits[index]);
+                let newValue = take.join('\n');
+                textarea.value = newValue;
+                updateCounter();
+            });
+
+            textarea.addEventListener("input", function () {
+                let words = getWords(this.value);
+
+                // Trim overflow, should handle spacing
+                if (words.length > limits[index]) {
+                    this.value = words.slice(0, limits[index]).join(" ");
+                }
+
+                updateCounter();
+            });
+
+            textarea.addEventListener("keydown", function (event) {
+                let words = getWords(this.value);
+                const allowedKeys = [
+                    "Backspace", "Delete",
+                    "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown",
+                    "Tab", "Enter"
+                ];
+
+                // Prevent space key entirely
+                if (event.key === " ") {
+                    event.preventDefault();
+                    return;
+                }
+
+                // Prevent adding more words only if the last word is completed
+                if (!allowedKeys.includes(event.key)) {
+                    if (words.length >= limits[index]) {
+                        const isSpace = event.key === " ";
+                        const cursorAtEnd = this.selectionStart === this.value.length;
+                        if (isSpace && cursorAtEnd) event.preventDefault();
+                    }
+                }
+                // ENTER key behavior
+                if (event.key === "Enter") {
+                    if (words.length < limits[index]) {
+                        // Allow newline if under limit
+                        return;
+                    } else if (words.length === limits[index]) {
+                        event.preventDefault();
+                        let next = textareas[index + 1];
+                        if (next) {
+                            next.focus();
+                            let len = next.value.length;
+                            next.setSelectionRange(len, len);
+                        }
+                    }
+                }
+
+                // Move backward on Backspace at start
+                if (event.key === "Backspace") {
+                    const cursorAtStart = this.selectionStart === 0 && this.selectionEnd === 0;
+                    if (cursorAtStart) {
+                        let prev = textareas[index - 1];
+                        if (prev) {
+                            event.preventDefault();
+                            prev.focus();
+                            let len = prev.value.length;
+                            prev.setSelectionRange(len, len);
+                        }
+                    }
+                }
+            });
+
+            updateCounter();
+        });
+    }
+
+    // Initialize
+    const textareas = [
+        document.getElementById("level1"),
+        document.getElementById("level2"),
+        document.getElementById("level3"),
+        document.getElementById("level4"),
+        document.getElementById("level5")
+    ];
+
+    const counters = [
+        document.getElementById("level1-count"),
+        document.getElementById("level2-count"),
+        document.getElementById("level3-count"),
+        document.getElementById("level4-count"),
+        document.getElementById("level5-count")
+    ];
+
+    const limits = [4, 4, 4, 4, 2];
+
+    limitWords(textareas, limits, counters);
+</script>
 
 </body>
 </html>

@@ -31,16 +31,14 @@
             box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
         }
         #mainContainer {
-        display: flex;
-        gap: 10px;
-        align-items: flex-start;
-        justify-content: flex-start;
-        flex-wrap: nowrap;
-        max-width: 1400px;
-        margin-left: 100px;
-        margin-right: 400px auto;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            max-width: 1400px;
+            margin: 0 auto;  
         }
-
         #worksheetSection {
             flex: 1;
             min-width: 350px;
@@ -50,7 +48,7 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            align-items: center;
+            align-items: flex;
         }
         .designOption {
             display: flex;
@@ -70,7 +68,7 @@
             transition: border-color 0.2s;
 
         }
-                .designOption input:checked ~ div img,
+        .designOption input:checked ~ div img,
         .designOption:has(input:checked) img {
             border-color: #7c3aed;
             box-shadow: 0 0 0 3px #c4b5fd;
@@ -120,11 +118,11 @@
         </div>
     </div>
         <div>
-            <button onclick="downloadWorksheet()">Download as Text</button>
-            <button onclick="editWorksheet()">Edit</button>
-            <button onclick="location.href='/frontend/userInput.html'">Back to Input</button>
-            <button onclick="location.href='/frontend/welcomePage.html'">Back to Home</button>
-            <button id="generateBtn" onclick="generatePNG()">Generate PNG ➜</button>
+            <button onclick="downloadWorksheet()">💾<b>Download as Text</b>><br><b>テキストファイルで保存</b></button>
+            <button onclick="editWorksheet()">🖉<b>Edit</b><br><b>編集</b></button>
+            <button onclick="location.href='/frontend/userInput.html'">🔄<b>Back to Input</b><br><b>入力へ</b></button>
+            <button id="generateBtn" onclick="generatePNG()">⏩<b>Generate PNG</b>🎨<br><b>写真を作る</b></button>
+            <button onclick="location.href='/frontend/welcomePage.html'">🏠<b>Home</b><br><b>ホームページへ</b></button>
         </div>
     <script src="/frontend/inputHandler.js"></script>
     <script>

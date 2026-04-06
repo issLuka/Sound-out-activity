@@ -34,7 +34,7 @@ def processEdited(editedWords):
     for line in lines:
         line = line.strip()
 
-        if line.startswith("level"):
+        if line.startswith("Level"):
             if "1" in line:
                 currentLevel = "level1"
             elif "2" in line:
@@ -54,7 +54,7 @@ def processEdited(editedWords):
             kana, word = line.split(" - ", 1)
             processed[currentLevel]["kana"].append(kana.strip())
             processed[currentLevel]["randomizedWords"].append(word.strip())
-    print(processed)
+    #print(processed)
     return processed
 
 @app.route("/")
@@ -78,7 +78,7 @@ def design():
         designChoice = data.get("design")
         processed = data.get("processed")
         editedText = data.get("editedWorksheet")
-
+        print(editedText)
         if not designChoice or not processed:
             return jsonify({"status": "error", "message": "Missing design or processed data"}), 400
 
