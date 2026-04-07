@@ -17,8 +17,13 @@ def randomSpelling(wordList):
 
     randomList = wordList.copy() #copies the original list to a new list for randomization
     for i in range(len(randomList)): 
-        randomList[i]= ''.join(random.sample(randomList[i],len(randomList[i]))) #randomizes the spelling of each word in the list by shuffling the letters
+        original = randomList[i]
+        randomized = ''.join(random.sample(original, len(original)))
 
+        while randomized == original:
+            randomized = ''.join(random.sample(original, len(original)))
+        randomList[i] = randomized
+        
     return randomList
 
 def katakanaize(wordList): #turn og list to kana
