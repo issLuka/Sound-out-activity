@@ -6,10 +6,12 @@
         <style>
         button{
             margin: 10px;
+            height: 75%;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
             box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
+            background-color: #e6e7e4;
         }    
         body {
             font-family: Arial, sans-serif;
@@ -17,37 +19,40 @@
             padding: 20px;
             background: #dcb4ec;
         }
+        textarea{
+            font-size: 25px;
+        }
         </style>
     </head>
 
 <body style="text-align: center;">
         
         <!-- displays text areas for user to input words -->
-    <h1>Enter English Words by Level</h1>
+    <h1><b><i>Enter English Words by Level</i></b></h1>
 
         <div>
-            <h4>Level 1 (4 words)<br><span style="font-size: 0.8em;">press space after each word<br>入力した言葉の後でエンターキー押して</span>
+            <h4 style = "font-size: 18px"><u>Level 1 (4 words)<br><u style="font-size: 0.8;">press space after each word<br>入力した言葉の後でエンターキー押して</u></span>
 </h4>
             <textarea id="level1" rows="4" cols="50"></textarea>
             <div id="level1-count"></div>
         </div>
         <div>
-            <h4>Level 2 (4 words)</h4>
+            <h4 style = "font-size: 18px"><u>Level 2 (4 words)</u></h4>
             <textarea id="level2" rows="4" cols="50"></textarea>
             <div id="level2-count"></div>
         </div>
         <div >
-            <h4>Level 3 (4 words)</h4>
+            <h4 style = "font-size: 18px"><u>Level 3 (4 words)</u></h4>
             <textarea id="level3" rows="4" cols="50"></textarea>
             <div id="level3-count"></div>
         </div>
         <div >
-            <h4>Level 4 (4 words)</h4>
+            <h4 style = "font-size: 18px"><u>Level 4 (4 words)</u></h4>
             <textarea id="level4" rows="4" cols="50"></textarea>
             <div id="level4-count"></div>
         </div>
         <div >
-            <h4>Level 5 (2 words)</h4>
+            <h4 style = "font-size: 18px"><u>Level 5 (2 words)</u></h4>
             <textarea id="level5" rows="2" cols="50"></textarea>
             <div id="level5-count"></div>
         </div>
