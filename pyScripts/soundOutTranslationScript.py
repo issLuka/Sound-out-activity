@@ -31,9 +31,11 @@ def katakanaize(wordList): #turn og list to kana
     kanaList = []
     for word in wordList:
         try:
-            katakana = p2k(g2p(word))
+            phonemes = g2p(word)
+            katakana = p2k(phonemes)
             kanaList.append(katakana)
-        except:
+        except Exception as e:
+            #print(f"DEBUG: Failed to convert '{word}': {e}")
             kanaList.append(word)
         
     return kanaList 

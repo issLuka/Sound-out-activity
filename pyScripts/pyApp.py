@@ -1,8 +1,9 @@
+import os, sys
+#adds scripts to path for import to soundout scipt - MUST be before other imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 import soundOutTranslationScript, addToPNGScript
 from flask import Flask, request, jsonify, send_from_directory, send_file
-import os, sys
-#adds scripts to path for import to soundout scipt
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 app_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(app_dir)

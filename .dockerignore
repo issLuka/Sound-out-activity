@@ -1,0 +1,13 @@
+.git
+.venv
+.vscode
+__pycache__
+*.pyc
+.gitignore
+.DS_Store
+png/soundoutActivityBulbasaurTextSizeTest.png
+.env
+node_modules
+txtFiles
+workflow.md
+workLocations.txt
