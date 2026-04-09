@@ -4,6 +4,8 @@ import random
 import re
 from e2k import P2K #importing e2k phoneme to kana converter
 from g2p_en import G2p 
+from collections.abc import Sequence
+from pyApp import logger
 
 #------------------------------------------------------------------------------
 #section for basic variables
@@ -18,11 +20,21 @@ def randomSpelling(wordList):
     randomList = wordList.copy() #copies the original list to a new list for randomization
     for i in range(len(randomList)): 
         original = randomList[i]
-        randomized = ''.join(random.sample(original, len(original)))
+        try: #should handle errors.. right..
+            if not isinstance(original, Sequence) or not original:
+                raise ValueError(f"Invalid input: {original}")
 
-        while randomized == original:
             randomized = ''.join(random.sample(original, len(original)))
-        randomList[i] = randomized
+            attempts = 0
+            while randomized == original:
+                randomized = ''.join(random.sample(original, len(original)))
+                attempts += 1
+            
+            randomList[i] = randomized
+        
+        except Exception as e:
+            logger.error(f"randomSpelling failed with word '{original}' at index {i}: {e}")
+            randomList[i] = original
         
     return randomList
 

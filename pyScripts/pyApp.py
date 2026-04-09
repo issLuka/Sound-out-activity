@@ -4,12 +4,21 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import soundOutTranslationScript, addToPNGScript
 from flask import Flask, request, jsonify, send_from_directory, send_file
+import logging
 
 app_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(app_dir)
 
 app = Flask(__name__, static_folder=os.path.join(project_root), static_url_path="")
 
+logger = logging.getLogger("soundOutApp")
+logger.setLevel(logging.INFO)
+
+file_handler = logging.FileHandler("app.log")
+formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+file_handler.setFormatter(formatter)
+
+logger.addHandler (file_handler)
 def processEdited(editedWords):
     processed = {
         "level1":{
@@ -70,6 +79,7 @@ def submit():
         text   = soundOutTranslationScript.formatTextOutput(result)
         return jsonify({"status": "success", "output": text, "processed": result})
     except Exception as e:
+        logger.error(f"/submit failed for data: {data} | Error: {e}")
         return jsonify({"status": "error", "message": str(e)}), 500
     
 @app.route("/generatePNG", methods=["POST"]) #TO FINISH: come back when figure out logic for drawing text
