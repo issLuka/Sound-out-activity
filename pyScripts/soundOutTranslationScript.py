@@ -49,7 +49,7 @@ def randomSpelling(wordList):
     return randomList
 
 def katakanaize(wordList): #turn og list to kana
-    g2p, p2k = getConvert()
+    #g2p, p2k = getConvert()
     kanaList = []
     for word in wordList:
         try:
