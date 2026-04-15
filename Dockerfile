@@ -15,4 +15,4 @@ COPY . .
 # Expose port 5000
 EXPOSE 5000
 # Run with Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "pyScripts.pyApp:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "1", "--timeout", "120", "pyApp:app"]
