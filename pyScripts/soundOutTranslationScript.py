@@ -2,10 +2,11 @@
 #Louis Faunce - made 06/20/2025 - edtied 03/27/2026 for web app version
 import random
 import re
-from e2k import P2K #importing e2k phoneme to kana converter
-from g2p_en import G2p 
 from collections.abc import Sequence
 from pyApp import logger
+from g2p_en import G2p 
+from e2k import P2K #importing e2k phoneme to kana converter
+
 
 #------------------------------------------------------------------------------
 #section for basic variables
@@ -14,6 +15,15 @@ g2p = G2p() #initializing the g2p converter (assists with converting words to ph
 kanaList = [] 
 soundOutList = [] 
 #-------------------------------------------------------------------------------
+def getConvert():
+    global g2p, p2k
+    if g2p is None:
+        from g2p_en import G2p 
+        g2p = G2p()
+    if p2k is None:
+        from e2k import P2K #importing e2k phoneme to kana converter
+        p2k = P2K()
+    return g2p, p2k
 
 def randomSpelling(wordList): 
 
@@ -39,7 +49,7 @@ def randomSpelling(wordList):
     return randomList
 
 def katakanaize(wordList): #turn og list to kana
-
+    #g2p, p2k = getConvert()
     kanaList = []
     for word in wordList:
         try:
