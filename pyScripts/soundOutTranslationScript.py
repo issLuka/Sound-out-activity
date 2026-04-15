@@ -4,11 +4,14 @@ import random
 import re
 from collections.abc import Sequence
 from pyApp import logger
+from g2p_en import G2p 
+from e2k import P2K #importing e2k phoneme to kana converter
+
 
 #------------------------------------------------------------------------------
 #section for basic variables
-p2k = None #initializing the phoneme to kana converter
-g2p = None #initializing the g2p converter (assists with converting words to phonemes for the p2k converter)
+p2k = P2K() #initializing the phoneme to kana converter
+g2p = G2p() #initializing the g2p converter (assists with converting words to phonemes for the p2k converter)
 kanaList = [] 
 soundOutList = [] 
 #-------------------------------------------------------------------------------
