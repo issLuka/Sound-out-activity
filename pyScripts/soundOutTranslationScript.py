@@ -6,9 +6,7 @@ from e2k import P2K #importing e2k phoneme to kana converter
 from g2p_en import G2p 
 from collections.abc import Sequence
 from pyApp import logger
-import nltk
-nltk.download('averaged_perceptron_tagger')
-nltk.download('cmudict')
+
 #------------------------------------------------------------------------------
 #section for basic variables
 p2k = None #initializing the phoneme to kana converter
