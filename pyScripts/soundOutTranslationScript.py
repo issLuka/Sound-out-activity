@@ -9,11 +9,18 @@ from pyApp import logger
 
 #------------------------------------------------------------------------------
 #section for basic variables
-p2k = P2K() #initializing the phoneme to kana converter
-g2p = G2p() #initializing the g2p converter (assists with converting words to phonemes for the p2k converter)
+p2k = None #initializing the phoneme to kana converter
+g2p = None #initializing the g2p converter (assists with converting words to phonemes for the p2k converter)
 kanaList = [] 
 soundOutList = [] 
 #-------------------------------------------------------------------------------
+def getConvert():
+    global g2p, p2k
+    if g2p is None:
+        g2p = G2p()
+    if p2k is None:
+        p2k = P2K()
+    return g2p, p2k
 
 def randomSpelling(wordList): 
 
@@ -39,7 +46,7 @@ def randomSpelling(wordList):
     return randomList
 
 def katakanaize(wordList): #turn og list to kana
-
+    g2p, p2k = getConvert()
     kanaList = []
     for word in wordList:
         try:
