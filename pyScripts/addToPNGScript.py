@@ -109,7 +109,7 @@ def fitSingleLine(draw, text, box, font_path, maxSize=100):
         font_size -= 1
 
     return font, text_width, text_height
-    
+
 def drawText(words, draw, levelBoxes):
     
     levelTwoBoxes, levelThreeBoxes, levelFourBoxes, levelFiveBoxes = levelBoxes
@@ -130,7 +130,7 @@ def drawText(words, draw, levelBoxes):
 
         displayItems = [
             f"{kana} - {word}"
-            for kana, word in zip(levelWords["kana"], levelWords["randomizedWords"])
+            for kana, word in zip(levelWords["kana"], " ".join(levelWords["randomizedWords"]))
         ]
 
         for i, text in enumerate(displayItems):

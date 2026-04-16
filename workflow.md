@@ -26,3 +26,6 @@
 - figure out the error it throws when a level is skipped or don't allow the generate button to work if all levels not filled with message that says "fill all levels" and a list of what's not filled in or something along those lines
 - add copy paste commands (allow users to paste and have it fill in level 1 with 4, 2 with 4 etc automatically)
 - add borders to seperate levels
+- set up half work sheets
+    - 4 levels, 2 words each, selector at top for full or half sheet which will determine the text boxes displayed
+        - seperate scripts to all be in inputHandler.js maybe or create completely seperate scripts sheet?
