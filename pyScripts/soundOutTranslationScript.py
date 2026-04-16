@@ -34,7 +34,7 @@ def randomSpelling(wordList):
             if not isinstance(original, Sequence) or not original:
                 raise ValueError(f"Invalid input: {original}")
 
-            randomized = ''.join(random.sample(original, len(original)))
+            randomized = ' '.join(random.sample(original, len(original)))
             attempts = 0
             while randomized == original:
                 randomized = ' '.join(random.sample(original, len(original)))
