@@ -130,7 +130,7 @@ def drawText(words, draw, levelBoxes):
 
         displayItems = [
             f"{kana} - {word}"
-            for kana, word in zip(levelWords["kana"], "".join(levelWords["randomizedWords"]))
+            for kana, word in zip(levelWords["kana"], levelWords["randomizedWords"])
         ]
 
         for i, text in enumerate(displayItems):
