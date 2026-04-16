@@ -130,7 +130,7 @@ def drawText(words, draw, levelBoxes):
 
         displayItems = [
             f"{kana} - {word}"
-            for kana, word in zip(levelWords["kana"], " ".join(levelWords["randomizedWords"]))
+            for kana, word in zip(levelWords["kana"], "".join(levelWords["randomizedWords"]))
         ]
 
         for i, text in enumerate(displayItems):
@@ -145,7 +145,6 @@ def drawText(words, draw, levelBoxes):
             
             draw.text((x, y), text, font = font, anchor = "ls", fill = "black", encoding = "UTF-8")
 
-    
 
 def imageGeneration(input, words):
 
