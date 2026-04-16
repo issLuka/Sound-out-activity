@@ -37,7 +37,7 @@ def randomSpelling(wordList):
             randomized = ''.join(random.sample(original, len(original)))
             attempts = 0
             while randomized == original:
-                randomized = ''.join(random.sample(original, len(original)))
+                randomized = ' '.join(random.sample(original, len(original)))
                 attempts += 1
             
             randomList[i] = randomized
