@@ -29,3 +29,6 @@
 - set up half work sheets
     - 4 levels, 2 words each, selector at top for full or half sheet which will determine the text boxes displayed
         - seperate scripts to all be in inputHandler.js maybe or create completely seperate scripts sheet?
+
+- set up a selector in userInput for full or half size sheet (need to make half size in PS)
+- set up options like only kana, remove first letter (replaces with "_") or remove random letter(s): user prolly needs enter what level what word ex Level(dropdown)1-5 word #(dropdown) 1-4/1-2
