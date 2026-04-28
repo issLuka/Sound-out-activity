@@ -76,6 +76,8 @@
 <script src="/frontend/inputHandler.js"></script>
 <script>
     // Logic for max words in text boxes, word count, jumping between boxes, and paste handling.
+    const regex = /^[A-Za-z]+$/;
+
     function limitWords(textareas, limits, counters) {
         function getWords(text) {
             return text.trim().split(/\s+/).filter(wrd => wrd.length > 0);
@@ -85,7 +87,11 @@
             function updateCounter() {
                 let words = getWords(textarea.value);
                 let remaining = limits[index] - words.length;
-
+                if(words.some(w => !regex.test(w))){
+                    counters[index].innerHTML = "Please only enter English letters<br>英文字だけ入力してください";
+                    counters[index].style.color = "red";
+                    return;
+                }
                 if (remaining <= 0) {
                     counters[index].innerHTML = "Press Enter<br>エンターキー押してください";
                     counters[index].style.color = "ForestGreen";

@@ -19,7 +19,7 @@
 
  ## to do
 - ~~ add spaces between letters (ask higuchi sensei if she prefs with or without)~~
-- make so it gives the error red or some type of signal when entering noncharacters (,.-/ etc)
+- ~~make so it gives the error red or some type of signal when entering noncharacters (,.-/ etc)~~
 - make it print the mixed text according to the box entered, like if user enters 3 words in level 1, 2 in level 2 , 1 in level 3, make it print out the 3 in level 1, 2 in level 2 etc
     - (work flow for this will likely be initially changing the way the input is taken into the pyApp and sent to the soundOutTranslation, then the output from that and adjusting the input in the actual writing script so they can reflect the original input)
         - **PERHAPS MAKE IT EVENTUALLY HAVE ABILITY TO MAKE MINI WORKSHEET? LIKE 2 WORDS A LEVEL OR 1-4 INSTEAD OF 1-5 OR SOMETHIG***
