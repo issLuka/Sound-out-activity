@@ -32,3 +32,4 @@
 
 - set up a selector in userInput for full or half size sheet (need to make half size in PS)
 - set up options like only kana, remove first letter (replaces with "_") or remove random letter(s): user prolly needs enter what level what word ex Level(dropdown)1-5 word #(dropdown) 1-4/1-2
+- ~~branched ~~
